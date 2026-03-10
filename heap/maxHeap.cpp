@@ -37,13 +37,55 @@ public:
     return;
   }
 
+  void Heapify(int ind)
+  {
+    int largest = ind;
+    int left = 2 * ind + 1;
+    int right = 2 * ind + 2;
+
+    if (left < size && arr[left] > arr[largest])
+    {
+      largest = left;
+    }
+    if (right < size && arr[right] < arr[largest])
+    {
+      largest = right;
+    }
+
+    if (largest != ind)
+    {
+      swap(arr[largest], arr[ind]);
+      Heapify(largest);
+    }
+  }
+
   void pop()
   {
-    cout << " " << endl;
+    if (size == 0)
+    {
+      cout << "Heap underflow\n";
+      return;
+    }
+
+    cout << arr[0] << " deleted from the heap" << endl;
+    arr[0] = arr[size - 1];
+    size--;
+
+    if (size == 0)
+      return;
+
+    Heapify(0);
   }
 
   int top()
   {
+    if (size == 0)
+    {
+      cout << "Heap is empty" << endl;
+    }
+
+    int top = arr[size - 1];
+    return top;
   }
 
   void print()
@@ -63,5 +105,7 @@ int main()
   pq.push(4);
   pq.push(8);
   pq.push(5);
+  pq.pop();
+  pq.pop();
   pq.print();
 }
